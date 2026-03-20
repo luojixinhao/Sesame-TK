@@ -498,6 +498,11 @@ class ApplicationHook {
          */
         @JvmStatic
         fun shouldEnableSimplePageManager(): Boolean {
+            // 已关闭滑块验证功能
+            // 仅保留此函数供未来逻辑扩展，不再自动为版本低于10.6.58的应用加载滑块处理器
+            return false
+
+            /*
             if (!VersionHook.hasVersion() || alipayVersion.toString().isEmpty()) {
                 return false
             }
@@ -510,6 +515,7 @@ class ApplicationHook {
             }
 
             return true
+            */
         }
 
         @Volatile

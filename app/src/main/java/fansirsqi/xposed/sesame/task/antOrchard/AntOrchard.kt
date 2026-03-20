@@ -513,9 +513,10 @@ class AntOrchard : ModelTask() {
             }
 
             val taskList = responseJson.getJSONArray("taskList")
-            Log.farm("responseJson: $responseJson, taskList length: ${taskList.length()}")
-            for (i in 0 until taskList.length()) {
-                val task = taskList.getJSONObject(i)
+            val taskListSize = taskList.length()
+
+            // Log.farm("responseJson: $responseJson, taskList length: $taskListSize")
+            for (i in 0 until taskListSize) {
                 if (task.optString("taskStatus") != "TODO") continue
 
                 val actionType = task.optString("actionType")
@@ -559,7 +560,7 @@ class AntOrchard : ModelTask() {
                     for (cnt in 0 until timesToDo) {
                         val finishResponse = JSONObject(AntOrchardRpcCall.finishTask(userId, sceneCode, taskId))
                         if (ResChecker.checkRes(TAG, finishResponse)) {
-                            Log.farm("农场广告任务📺[$title] taskId=$taskId 第${rightsTimes + cnt + 1}次")
+                            Log.farm("农场广告任务📺[$title] sceneCode=$sceneCode taskId=$taskId 第${rightsTimes + cnt + 1}次, taskListLength: $taskListSize")
                         } else {
                             val errorCode = finishResponse.optString("code", "")
                             if (!errorCode.isEmpty()) {
