@@ -515,6 +515,7 @@ class AntOrchard : ModelTask() {
             val taskList = responseJson.getJSONArray("taskList")
 
             for (i in 0 until taskList.length()) {
+                val task = taskList.getJSONObject(i)
                 if (task.optString("taskStatus") != "TODO") continue
 
                 val actionType = task.optString("actionType")
